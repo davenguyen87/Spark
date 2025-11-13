@@ -3,33 +3,86 @@
  */
 
 const Sparks = {
+    stats: {
+        sent: 12,
+        received: 5,
+        matches: 3
+    },
+
     init: function() {
         console.log('Sparks module initialized');
+        this.attachEventListeners();
+        this.updateStats();
+
+        // Log initial state
+        const sparkItems = document.querySelectorAll('.spark-item');
+        console.log(`Found ${sparkItems.length} spark items`);
+    },
+
+    attachEventListeners: function() {
+        // Attach event listeners to all accept/decline buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('spark-button')) {
+                console.log('Spark button clicked:', e.target.classList.contains('accept') ? 'accept' : 'decline');
+                const sparkItem = e.target.closest('.spark-item');
+                if (sparkItem) {
+                    if (e.target.classList.contains('accept')) {
+                        this.acceptSpark(sparkItem);
+                    } else if (e.target.classList.contains('decline')) {
+                        this.declineSpark(sparkItem);
+                    }
+                } else {
+                    console.error('Could not find parent spark-item');
+                }
+            }
+        });
+    },
+
+    updateStats: function() {
+        const statNumbers = document.querySelectorAll('.sparks-stats .stat-number');
+        if (statNumbers.length >= 3) {
+            statNumbers[0].textContent = this.stats.sent;
+            statNumbers[1].textContent = this.stats.received;
+            statNumbers[2].textContent = this.stats.matches;
+        }
     },
 
     acceptSpark: function(sparkElement) {
         UI.showNotification("Spark accepted! You can now chat 💬");
         sparkElement.style.transform = 'translateX(500px)';
         sparkElement.style.opacity = '0';
+        sparkElement.style.transition = 'all 0.3s ease';
+
+        // Update stats
+        this.stats.matches++;
+        this.stats.received--;
 
         setTimeout(() => {
             sparkElement.remove();
             this.updateSparkCount();
+            this.updateStats();
+            this.checkEmptyState();
         }, 300);
     },
 
     declineSpark: function(sparkElement) {
         sparkElement.style.transform = 'translateX(-500px)';
         sparkElement.style.opacity = '0';
+        sparkElement.style.transition = 'all 0.3s ease';
+
+        // Update stats
+        this.stats.received--;
 
         setTimeout(() => {
             sparkElement.remove();
             this.updateSparkCount();
+            this.updateStats();
+            this.checkEmptyState();
         }, 300);
     },
 
     updateSparkCount: function() {
-        const badge = document.querySelector('.nav-item .notification-badge');
+        const badge = document.querySelector('.bottom-nav .nav-item:nth-child(3) .notification-badge');
         if (badge) {
             const count = parseInt(badge.textContent);
             if (count > 1) {
@@ -38,7 +91,38 @@ const Sparks = {
                 badge.remove();
             }
         }
+    },
+
+    checkEmptyState: function() {
+        const sparksList = document.querySelector('.sparks-list');
+        const sparkItems = document.querySelectorAll('.spark-item');
+
+        if (sparkItems.length === 0) {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'empty-state';
+            emptyState.innerHTML = `
+                <div style="text-align: center; padding: 60px 20px; color: #999;">
+                    <div style="font-size: 64px; margin-bottom: 16px;">✨</div>
+                    <h3 style="font-size: 20px; margin-bottom: 8px; color: #666;">No New Sparks</h3>
+                    <p style="font-size: 14px;">Check back later for new connections!</p>
+                </div>
+            `;
+            sparksList.appendChild(emptyState);
+        }
     }
 };
 
+// Global helper functions for inline onclick handlers (if needed)
+function acceptSpark(button) {
+    const sparkItem = button.closest('.spark-item');
+    Sparks.acceptSpark(sparkItem);
+}
+
+function declineSpark(button) {
+    const sparkItem = button.closest('.spark-item');
+    Sparks.declineSpark(sparkItem);
+}
+
 window.Sparks = Sparks;
+window.acceptSpark = acceptSpark;
+window.declineSpark = declineSpark;
