@@ -8,36 +8,87 @@ An interactive, **100% browser-based** mockup of the Spark social discovery app 
 
 ## Overview
 
-This demo showcases the complete UI/UX design of Spark, including:
-- Real-time heat map visualization
-- Tinder-style card swiping for discovery
+This demo showcases the complete UI/UX design of Spark with **real NYC locations**, including:
+- **NYC Vector Map** - Custom SVG map of Manhattan, Brooklyn, Queens, Bronx, and New Jersey
+- **19 Real NYC Venues** - From Times Square to Williamsburg, Chelsea Market to Central Park
+- Real-time heat map visualization showing hotspots across NYC
+- Tinder-style card swiping for discovery with NYC residents
 - Spark connection system
 - User profiles with gamification
 - iPhone 17 Dynamic Island integration
 
-**Technology:** Pure HTML5, CSS3, and vanilla JavaScript—no frameworks, no dependencies (except Font Awesome CDN for icons).
+**Technology:** Pure HTML5, CSS3, and vanilla JavaScript—no frameworks, no dependencies (except Font Awesome CDN for icons). **No API keys required** - all map data is embedded.
 
 ## File Structure
 
 ```
 demo/
 ├── index.html              # Main HTML file
+├── assets/                 # Static assets
+│   └── nyc-map.svg        # 🗽 Custom NYC vector map (no API key!)
 ├── css/                    # Stylesheets organized by concern
 │   ├── base.css           # Global styles, reset, body, gradients
 │   ├── iphone.css         # iPhone 17 frame, Dynamic Island, status bar
 │   ├── components.css     # Reusable components (buttons, cards, badges)
-│   ├── screens.css        # Screen-specific layouts
+│   ├── screens.css        # Screen-specific layouts (NYC map loaded here)
 │   └── animations.css     # Keyframe animations and transitions
 ├── js/                     # JavaScript modules by feature
+│   ├── nyc-data.js        # 🗽 19 Real NYC venues, heat spots, user profiles
 │   ├── app.js             # Main app initialization and state
 │   ├── navigation.js      # Screen switching logic
-│   ├── map.js             # Map screen functionality
+│   ├── map.js             # Map screen with NYC rendering
 │   ├── discovery.js       # Card swiping and matching
 │   ├── sparks.js          # Sparks screen functionality
 │   ├── profile.js         # Profile screen functionality
 │   └── ui.js              # UI utilities (notifications, Dynamic Island)
-└── README.md              # This file
+├── README.md              # This file
+├── QUICKSTART.md          # Ultra-quick start guide
 ```
+
+## NYC Data
+
+The demo features **real New York City locations** without requiring any API keys:
+
+### Vector Map
+- **Custom SVG map** (`assets/nyc-map.svg`) shows Manhattan, Brooklyn, Queens, Bronx, and New Jersey
+- Includes rivers (Hudson, East River), parks (Central Park, Prospect Park), and major landmarks
+- Styled with gradients for water and land
+- Street grid overlay for Manhattan
+- No external API calls - completely self-contained
+
+### Real Venues (19 locations)
+All venues in `js/nyc-data.js` are real NYC hotspots:
+
+**Manhattan:**
+- Times Square, Central Park, The Met Museum
+- Chelsea Market, The Highline, Lincoln Center
+- Bryant Park, Union Square, Tompkins Square
+- Stone Street, Spring Lounge, Hell's Kitchen
+
+**Brooklyn:**
+- Williamsburg (Bedford Ave, Smorgasburg)
+- DUMBO (Brooklyn Bridge Park)
+
+**Queens:**
+- Long Island City (Gantry Plaza)
+- Astoria Beer Garden
+
+**Other:**
+- Pier 17 (Financial District)
+- Alphabet City Bars (East Village)
+
+### Heat Map Positioning
+Heat spots are strategically placed to show realistic NYC hotspot clusters:
+- Lower Manhattan (Financial District)
+- Midtown (Times Square area)
+- Chelsea/Meatpacking District
+- East Village
+- Central Park area
+- Williamsburg, Brooklyn
+- Upper East Side
+- DUMBO/Brooklyn Heights
+
+All positions use percentage-based coordinates to align with the vector map.
 
 ## Architecture
 
