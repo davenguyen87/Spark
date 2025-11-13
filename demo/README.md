@@ -13,10 +13,10 @@ This demo showcases the complete UI/UX design of Spark with **real NYC locations
 - **19 Real NYC Venues** - From Times Square to Williamsburg, Chelsea Market to Central Park
 - **Heat Map Layer** - Visualize activity hotspots across NYC with gradient colors
 - **Interactive Markers** - Click any venue to see details, people count, and neighborhood
-- Tinder-style card swiping for discovery with NYC residents
-- Spark connection system
-- User profiles with gamification
-- iPhone 17 Dynamic Island integration
+- **Event Discovery** - Swipe through 10 diverse NYC events with Gen Z UI (🔥 Confirm, 👀 Interested, ❌ Pass)
+- **Event-Based Connections** - Meet people through shared event interest
+- **User Profiles** - Event attendance tracking and gamification
+- **iPhone 17 Dynamic Island** - Event notifications and confirmations
 
 **Technology:** Pure HTML5, CSS3, vanilla JavaScript + **Leaflet.js** map library. **No API keys required** - OpenStreetMap is completely free!
 
@@ -107,19 +107,20 @@ All venues use actual GPS coordinates for accurate positioning on the map.
 - Screen and navigation structure
 
 **components.css**
-- Buttons (action buttons, spark buttons, premium buttons)
+- Buttons (event action buttons: ❌ pass, 🔥 confirm, 👀 interested)
 - Badges (trust badges, notification badges)
-- Cards (user cards, spark items)
+- Cards (event cards with venue/time/attendance info, connection items)
+- Event-specific styles (event-title, event-venue, event-meta, event-attendance)
 - Toggles (settings switches)
 - Loading spinner
 - Premium banner
 
 **screens.css**
 - Map screen with heat spots and venue pins
-- Discovery screen with card stack
-- Sparks screen with stats
-- Profile screen with settings
-- Match overlay
+- Discovery screen with event card stack
+- Events screen (formerly Sparks) with event stats and connections
+- Profile screen with event-focused stats and settings
+- Match/confirmation overlay
 
 **animations.css**
 - All keyframe animations (@keyframes)
@@ -144,15 +145,16 @@ All venues use actual GPS coordinates for accurate positioning on the map.
 - Check-in functionality
 
 **discovery.js**
-- Card swiping logic (mouse and touch)
-- Like/Reject/Super-like actions
-- Match overlay display
+- Event card swiping logic (mouse and touch)
+- Pass/Interested/Confirm actions (❌/👀/🔥)
+- Event confirmation notifications
 - Card stack management
+- Legacy compatibility for people-matching functions
 
 **sparks.js**
-- Spark acceptance/decline
+- Event connection acceptance/decline
 - Notification badge updates
-- Spark list management
+- Event connection list management
 
 **profile.js**
 - Settings toggle functionality
@@ -212,20 +214,22 @@ npx http-server -p 8080
    - Location permission overlay
    - Real-time updates
 
-2. **Discovery Screen**
-   - Tinder-style card swiping
-   - Drag to like/reject
-   - Button actions (reject, super-like, like)
-   - Match overlay animations
+2. **Discovery Screen** (Event Discovery)
+   - 10 diverse NYC events (jazz, food festivals, comedy, art, sports, nightlife, wellness, etc.)
+   - Card swiping with Gen Z UI
+   - Event details: venue address, distance, time, 🔥 confirmed count, 👀 interested count
+   - Button actions: ❌ Pass, 🔥 Confirm ("for sure I'll be there"), 👀 Interested
+   - Drag to interact or use buttons
 
-3. **Sparks Screen**
-   - Pending spark requests
-   - Stats dashboard (sent, received, matches)
-   - Accept/decline actions
-   - Time-based sorting
+3. **Events Screen** (formerly Sparks)
+   - Event-based connection requests from people going to same events
+   - Stats dashboard: 🔥 Confirmed events, 👀 Interested events, Attended count
+   - Accept/decline connection requests
+   - Shows shared event context (e.g., "Both confirmed 🔥" or "Also interested 👀")
 
 4. **Profile Screen**
    - User avatar and stats
+   - Event-focused metrics: Events Attended, Connections Made, Confirmed Upcoming
    - Premium subscription banner
    - Privacy settings with toggles
    - Safety features (panic button)
