@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--
+    Spark iPhone 17 Demo
+
+    100% Static HTML5 Demo - No Server Required!
+    Just open this file in your browser to run the demo.
+
+    Features:
+    - Interactive iPhone 17 mockup with Dynamic Island
+    - 4 screens: Map, Discovery, Sparks, Profile
+    - Card swiping, heat maps, and animations
+    - Pure HTML5/CSS3/JavaScript (no frameworks)
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark - Social Discovery App | iPhone 17 Demo</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet CSS (Free Map Library - No API Key!) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet Heat Map Plugin -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.css" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/iphone.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+    <!-- iPhone 17 Container -->
+    <div class="iphone-container">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island" id="dynamicIsland">
+            <div class="island-content">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="font-size: 24px;">🔥</div>
+                    <div>
+                        <div style="font-weight: 600;">3 New Sparks!</div>
+                        <div style="font-size: 10px; opacity: 0.8;">Sarah, Mike, and Emma nearby</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen -->
+        <div class="iphone-screen">
+            <div class="app-container">
+                <!-- Status Bar -->
+                <div class="status-bar" id="statusBar">
+                    <div class="status-time">9:41</div>
+                    <div class="status-icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Map Screen -->
+                    <div class="screen map-screen active" id="mapScreen">
+                        <div class="map-container" id="mapContainer">
+                            <!-- Leaflet Map (OpenStreetMap - Free, No API Key!) -->
+                            <div id="map"></div>
+                        </div>
+
+                        <!-- Location Permission Overlay -->
+                        <div class="location-overlay" id="locationOverlay">
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <div style="font-size: 48px; margin-bottom: 16px;">📍</div>
+                                <h3 style="font-size: 20px; margin-bottom: 8px;">Enable Location</h3>
+                                <p style="color: #666; font-size: 14px;">Discover amazing people and places nearby in NYC. Your location is kept private until you choose to share.</p>
+                            </div>
+                            <button onclick="enableLocation()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #FF6B6B, #4ECDC4); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Enable Location</button>
+                            <button onclick="hideLocationOverlay()" style="width: 100%; padding: 16px; background: transparent; color: #666; border: none; margin-top: 8px; cursor: pointer;">Maybe Later</button>
+                        </div>
+                    </div>
+
+                    <!-- Discovery Screen -->
+                    <div class="screen discovery-screen" id="discoveryScreen">
+                        <div class="discovery-header">
+                            <h1 class="discovery-title">Discover</h1>
+                            <p class="discovery-subtitle">Find amazing people nearby</p>
+                        </div>
+
+                        <!-- Card Stack -->
+                        <div class="card-stack" id="cardStack">
+                            <!-- User Card 1 -->
+                            <div class="user-card">
+                                <div class="card-image">
+                                    <div class="card-avatar">👩‍💼</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-name">Sarah Chen</h3>
+                                    <div class="card-info">
+                                        <span>📍 0.3 mi away</span>
+                                        <span class="trust-badge">✓ Verified</span>
+                                        <span>⭐ Explorer</span>
+                                    </div>
+                                    <p class="card-bio">Product designer who loves coffee, hiking, and finding the best brunch spots in the city. Let's explore together!</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button reject" onclick="rejectCard()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-button super" onclick="superLikeCard()">
+                                        <i class="fas fa-star"></i>
+                                    </button>
+                                    <button class="action-button like" onclick="likeCard()">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- User Card 2 -->
+                            <div class="user-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #FF6B6B, #FF8787);">
+                                    <div class="card-avatar">🧑‍💻</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-name">Mike Johnson</h3>
+                                    <div class="card-info">
+                                        <span>📍 0.5 mi away</span>
+                                        <span class="trust-badge">✓ Verified</span>
+                                        <span>⭐ Connector</span>
+                                    </div>
+                                    <p class="card-bio">Startup founder, fitness enthusiast, and amateur chef. Always up for spontaneous adventures!</p>
+                                </div>
+                            </div>
+
+                            <!-- User Card 3 -->
+                            <div class="user-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #4ECDC4, #44A08D);">
+                                    <div class="card-avatar">👩‍🎨</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-name">Emma Rodriguez</h3>
+                                    <div class="card-info">
+                                        <span>📍 0.2 mi away</span>
+                                        <span class="trust-badge">✓ Verified</span>
+                                        <span>⭐ Ambassador</span>
+                                    </div>
+                                    <p class="card-bio">Artist, yoga instructor, and sustainability advocate. Love meeting creative souls!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sparks Screen -->
+                    <div class="screen sparks-screen" id="sparksScreen">
+                        <div class="sparks-header">
+                            <div class="spark-emoji">✨</div>
+                            <h1 class="sparks-title">Your Sparks</h1>
+                        </div>
+
+                        <div class="sparks-stats">
+                            <div class="spark-stat">
+                                <div class="stat-number">12</div>
+                                <div class="stat-label">Sent Today</div>
+                            </div>
+                            <div class="spark-stat">
+                                <div class="stat-number">5</div>
+                                <div class="stat-label">Received</div>
+                            </div>
+                            <div class="spark-stat">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Matches</div>
+                            </div>
+                        </div>
+
+                        <div class="sparks-list">
+                            <h3 style="font-size: 18px; margin-bottom: 16px; color: #333;">New Sparks</h3>
+
+                            <div class="spark-item">
+                                <div class="spark-avatar">👨‍🎤</div>
+                                <div class="spark-info">
+                                    <div class="spark-name">Alex Thompson</div>
+                                    <div class="spark-location">📍 The Hub • 0.4 mi away</div>
+                                    <div class="spark-time">2 minutes ago</div>
+                                </div>
+                                <div class="spark-actions">
+                                    <button class="spark-button accept">Accept</button>
+                                    <button class="spark-button decline">Decline</button>
+                                </div>
+                            </div>
+
+                            <div class="spark-item">
+                                <div class="spark-avatar">👩‍🔬</div>
+                                <div class="spark-info">
+                                    <div class="spark-name">Rachel Kim</div>
+                                    <div class="spark-location">📍 Brew Lab • 0.2 mi away</div>
+                                    <div class="spark-time">15 minutes ago</div>
+                                </div>
+                                <div class="spark-actions">
+                                    <button class="spark-button accept">Accept</button>
+                                    <button class="spark-button decline">Decline</button>
+                                </div>
+                            </div>
+
+                            <div class="spark-item">
+                                <div class="spark-avatar">🧑‍🎓</div>
+                                <div class="spark-info">
+                                    <div class="spark-name">Jordan Davis</div>
+                                    <div class="spark-location">📍 Study Hall • 0.6 mi away</div>
+                                    <div class="spark-time">1 hour ago</div>
+                                </div>
+                                <div class="spark-actions">
+                                    <button class="spark-button accept">Accept</button>
+                                    <button class="spark-button decline">Decline</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Screen -->
+                    <div class="screen profile-screen" id="profileScreen">
+                        <div class="profile-header">
+                            <div class="profile-avatar">🦸‍♂️</div>
+                            <h2 class="profile-name">John Doe</h2>
+                            <div class="profile-level">⭐ Connector • 750 pts</div>
+                        </div>
+
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="stat-number">28</div>
+                                <div class="stat-label">Check-ins</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-number">156</div>
+                                <div class="stat-label">Sparks</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-number">42</div>
+                                <div class="stat-label">Matches</div>
+                            </div>
+                        </div>
+
+                        <div class="profile-content">
+                            <!-- Premium Banner -->
+                            <div class="premium-banner">
+                                <h3 class="premium-title">Upgrade to Spark Elite</h3>
+                                <p class="premium-description">Unlimited sparks, see who likes you, and get priority visibility</p>
+                                <button class="premium-button">Get Elite for $19.99/mo</button>
+                            </div>
+
+                            <!-- Settings -->
+                            <div class="settings-section">
+                                <h3 class="settings-title">Privacy Settings</h3>
+
+                                <div class="settings-item">
+                                    <span class="settings-label">Share exact location</span>
+                                    <div class="toggle" onclick="toggleSetting(this)">
+                                        <div class="toggle-ball"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-item">
+                                    <span class="settings-label">Show online status</span>
+                                    <div class="toggle active" onclick="toggleSetting(this)">
+                                        <div class="toggle-ball"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-item">
+                                    <span class="settings-label">Auto-accept verified users</span>
+                                    <div class="toggle" onclick="toggleSetting(this)">
+                                        <div class="toggle-ball"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3 class="settings-title">Safety</h3>
+
+                                <div class="settings-item">
+                                    <span class="settings-label">Enable SafeMode</span>
+                                    <div class="toggle active" onclick="toggleSetting(this)">
+                                        <div class="toggle-ball"></div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-item" style="background: linear-gradient(135deg, #FF6B6B, #FF8787); color: white;">
+                                    <span class="settings-label" style="color: white;">🚨 Panic Button</span>
+                                    <i class="fas fa-chevron-right" style="color: white;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Action Button -->
+                <button class="fab" onclick="checkIn()">
+                    <i class="fas fa-location-arrow"></i>
+                </button>
+
+                <!-- Bottom Navigation -->
+                <div class="bottom-nav">
+                    <div class="nav-item active" onclick="switchScreen('mapScreen', this)">
+                        <i class="fas fa-map nav-icon"></i>
+                        <span class="nav-label">Map</span>
+                    </div>
+                    <div class="nav-item" onclick="switchScreen('discoveryScreen', this)">
+                        <i class="fas fa-compass nav-icon"></i>
+                        <span class="nav-label">Discover</span>
+                    </div>
+                    <div class="nav-item" onclick="switchScreen('sparksScreen', this)">
+                        <i class="fas fa-bolt nav-icon"></i>
+                        <span class="nav-label">Sparks</span>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="nav-item" onclick="switchScreen('profileScreen', this)">
+                        <i class="fas fa-user nav-icon"></i>
+                        <span class="nav-label">Profile</span>
+                    </div>
+                </div>
+
+                <!-- Match Overlay -->
+                <div class="match-overlay" id="matchOverlay">
+                    <div class="match-content">
+                        <div class="match-emoji">🎉</div>
+                        <h1 class="match-title">It's a Match!</h1>
+                        <p class="match-message">You and Sarah both sparked each other!</p>
+                        <button class="match-button" onclick="closeMatch()">Send a Message</button>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <!-- Leaflet.js (Free Map Library - No API Key!) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet Heat Map Plugin -->
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+    <!-- NYC Data (must load first) -->
+    <script src="js/nyc-data.js"></script>
+
+    <!-- Core modules -->
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/discovery.js"></script>
+    <script src="js/sparks.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

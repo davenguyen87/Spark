@@ -1,0 +1,308 @@
+/* Screen-Specific Layouts */
+
+/* Map Screen */
+.map-screen {
+    background: #E8F4FD;
+    position: relative;
+}
+
+.map-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #E8F4FD;
+}
+
+/* Leaflet map fills the container */
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Heat Map Overlay */
+.heat-spot {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    animation: pulse 3s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.heat-spot.hot {
+    background: radial-gradient(circle, rgba(255,87,34,0.8) 0%, rgba(255,87,34,0.3) 50%, transparent 70%);
+}
+
+.heat-spot.warm {
+    background: radial-gradient(circle, rgba(255,193,7,0.8) 0%, rgba(255,193,7,0.3) 50%, transparent 70%);
+}
+
+.heat-spot.cool {
+    background: radial-gradient(circle, rgba(76,175,80,0.6) 0%, rgba(76,175,80,0.2) 50%, transparent 70%);
+}
+
+/* Venue Pins */
+.venue-pin {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.venue-pin:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: 200;
+}
+
+.pin-bubble {
+    background: white;
+    border-radius: 25px;
+    padding: 8px 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.pin-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.pin-icon.hot { background: linear-gradient(135deg, #FF6B6B, #FF8787); }
+.pin-icon.warm { background: linear-gradient(135deg, #FFD93D, #FFE066); }
+.pin-icon.cool { background: linear-gradient(135deg, #6BCF7F, #8DE4A6); }
+
+/* Location Permission Overlay */
+.location-overlay {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    z-index: 300;
+    display: none;
+    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.location-overlay.show {
+    display: block;
+}
+
+/* Discovery Screen */
+.discovery-screen {
+    background: white;
+    padding: 20px;
+}
+
+.discovery-header {
+    margin-bottom: 20px;
+}
+
+.discovery-title {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.discovery-subtitle {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Card Stack */
+.card-stack {
+    position: relative;
+    height: 500px;
+    margin: 20px 0;
+}
+
+/* Sparks Screen */
+.sparks-screen {
+    background: white;
+    padding: 20px;
+}
+
+.sparks-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sparks-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.spark-emoji {
+    font-size: 48px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparks-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
+    border-radius: 20px;
+}
+
+.spark-stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.sparks-list {
+    margin-top: 20px;
+}
+
+/* Profile Screen */
+.profile-screen {
+    background: white;
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 20px 60px;
+    text-align: center;
+    position: relative;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin: 0 auto 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.profile-name {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.profile-level {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: white;
+    margin-top: -30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.profile-stat {
+    text-align: center;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+/* Match Overlay */
+.match-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.match-overlay.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.match-content {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    animation: zoomIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.match-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.match-emoji {
+    font-size: 100px;
+    animation: bounce 1s ease infinite;
+}
+
+.match-message {
+    font-size: 18px;
+    margin: 20px 0;
+    opacity: 0.9;
+}

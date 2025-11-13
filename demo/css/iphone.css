@@ -1,0 +1,193 @@
+/* iPhone 17 Device Frame and Structure */
+
+/* iPhone 17 Frame */
+.iphone-container {
+    position: relative;
+    width: 430px;
+    height: 932px;
+    background: #1a1a1a;
+    border-radius: 55px;
+    padding: 12px;
+    box-shadow:
+        0 0 0 12px #2a2a2a,
+        0 0 0 14px #1a1a1a,
+        0 50px 100px rgba(0,0,0,0.5),
+        0 30px 60px rgba(0,0,0,0.3);
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.6s ease;
+}
+
+.iphone-container:hover {
+    transform: perspective(1000px) rotateY(5deg);
+}
+
+/* Dynamic Island */
+.dynamic-island {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 37px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dynamic-island.expanded {
+    width: 380px;
+    height: 120px;
+    border-radius: 30px;
+}
+
+.island-content {
+    display: none;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+}
+
+.dynamic-island.expanded .island-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Screen */
+.iphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 43px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* App Container */
+.app-container {
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Status Bar */
+.status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 59px;
+    background: transparent;
+    z-index: 9999;
+    padding: 0 40px;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.status-bar.light {
+    color: #FFF;
+}
+
+.status-time {
+    flex: 1;
+    text-align: left;
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Main Content Area */
+.main-content {
+    position: absolute;
+    top: 59px;
+    left: 0;
+    right: 0;
+    bottom: 85px;
+    overflow: hidden;
+    background: #F8F9FA;
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 85px;
+    background: white;
+    border-top: 1px solid #E0E0E0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+}
+
+.nav-item:active {
+    transform: scale(0.95);
+}
+
+.nav-icon {
+    font-size: 24px;
+    color: #999;
+    transition: all 0.3s ease;
+    margin-bottom: 4px;
+}
+
+.nav-item.active .nav-icon {
+    color: transparent;
+    background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.nav-label {
+    font-size: 10px;
+    color: #999;
+    font-weight: 600;
+}
+
+.nav-item.active .nav-label {
+    color: #333;
+}
