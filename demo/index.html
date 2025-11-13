@@ -87,67 +87,258 @@
                     <div class="screen discovery-screen" id="discoveryScreen">
                         <div class="discovery-header">
                             <h1 class="discovery-title">Discover</h1>
-                            <p class="discovery-subtitle">Find amazing people nearby</p>
+                            <p class="discovery-subtitle">Find events happening now and soon</p>
                         </div>
 
                         <!-- Card Stack -->
                         <div class="card-stack" id="cardStack">
-                            <!-- User Card 1 -->
-                            <div class="user-card">
-                                <div class="card-image">
-                                    <div class="card-avatar">👩‍💼</div>
+                            <!-- Event Card 1 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <div class="card-avatar">🎵</div>
                                 </div>
                                 <div class="card-content">
-                                    <h3 class="card-name">Sarah Chen</h3>
-                                    <div class="card-info">
+                                    <h3 class="event-title">Late Night Jazz Session</h3>
+                                    <div class="event-venue">Blue Note NYC • 131 W 3rd St</div>
+                                    <div class="event-meta">
                                         <span>📍 0.3 mi away</span>
-                                        <span class="trust-badge">✓ Verified</span>
-                                        <span>⭐ Explorer</span>
+                                        <span>🕐 Tonight 9:00 PM</span>
                                     </div>
-                                    <p class="card-bio">Product designer who loves coffee, hiking, and finding the best brunch spots in the city. Let's explore together!</p>
+                                    <div class="event-attendance">
+                                        <span>🔥 45</span>
+                                        <span>👀 12</span>
+                                    </div>
+                                    <p class="event-description">Intimate jazz quartet featuring local legends. Smooth vibes, craft cocktails, no cover charge.</p>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-button reject" onclick="rejectCard()">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-button super" onclick="superLikeCard()">
-                                        <i class="fas fa-star"></i>
-                                    </button>
-                                    <button class="action-button like" onclick="likeCard()">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
                                 </div>
                             </div>
 
-                            <!-- User Card 2 -->
-                            <div class="user-card">
+                            <!-- Event Card 2 -->
+                            <div class="event-card">
                                 <div class="card-image" style="background: linear-gradient(135deg, #FF6B6B, #FF8787);">
-                                    <div class="card-avatar">🧑‍💻</div>
+                                    <div class="card-avatar">🍔</div>
                                 </div>
                                 <div class="card-content">
-                                    <h3 class="card-name">Mike Johnson</h3>
-                                    <div class="card-info">
+                                    <h3 class="event-title">Rooftop Food Festival</h3>
+                                    <div class="event-venue">230 Fifth • 230 5th Ave</div>
+                                    <div class="event-meta">
                                         <span>📍 0.5 mi away</span>
-                                        <span class="trust-badge">✓ Verified</span>
-                                        <span>⭐ Connector</span>
+                                        <span>🕐 Sat 2:00 PM - 8:00 PM</span>
                                     </div>
-                                    <p class="card-bio">Startup founder, fitness enthusiast, and amateur chef. Always up for spontaneous adventures!</p>
+                                    <div class="event-attendance">
+                                        <span>🔥 120</span>
+                                        <span>👀 89</span>
+                                    </div>
+                                    <p class="event-description">15+ food trucks, live DJs, stunning city views. Street tacos to gourmet burgers. $10 entry.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
                                 </div>
                             </div>
 
-                            <!-- User Card 3 -->
-                            <div class="user-card">
+                            <!-- Event Card 3 -->
+                            <div class="event-card">
                                 <div class="card-image" style="background: linear-gradient(135deg, #4ECDC4, #44A08D);">
-                                    <div class="card-avatar">👩‍🎨</div>
+                                    <div class="card-avatar">😂</div>
                                 </div>
                                 <div class="card-content">
-                                    <h3 class="card-name">Emma Rodriguez</h3>
-                                    <div class="card-info">
+                                    <h3 class="event-title">Underground Comedy Show</h3>
+                                    <div class="event-venue">The Comedy Cellar • 117 MacDougal St</div>
+                                    <div class="event-meta">
                                         <span>📍 0.2 mi away</span>
-                                        <span class="trust-badge">✓ Verified</span>
-                                        <span>⭐ Ambassador</span>
+                                        <span>🕐 Tonight 11:00 PM</span>
                                     </div>
-                                    <p class="card-bio">Artist, yoga instructor, and sustainability advocate. Love meeting creative souls!</p>
+                                    <div class="event-attendance">
+                                        <span>🔥 67</span>
+                                        <span>👀 34</span>
+                                    </div>
+                                    <p class="event-description">Surprise lineup! Past performers from SNL and Netflix specials. Intimate 100-seat venue.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 4 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <div class="card-avatar">🎨</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Modern Art Gallery Opening</h3>
+                                    <div class="event-venue">Gagosian Gallery • 555 W 24th St</div>
+                                    <div class="event-meta">
+                                        <span>📍 1.2 mi away</span>
+                                        <span>🕐 Fri 6:00 PM - 10:00 PM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 89</span>
+                                        <span>👀 156</span>
+                                    </div>
+                                    <p class="event-description">Emerging artists showcase. Free champagne, live painting demos, networking vibes.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 5 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 90%);">
+                                    <div class="card-avatar">🏀</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Knicks Watch Party</h3>
+                                    <div class="event-venue">Stout NYC • 133 W 33rd St</div>
+                                    <div class="event-meta">
+                                        <span>📍 0.8 mi away</span>
+                                        <span>🕐 Tonight 7:30 PM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 203</span>
+                                        <span>👀 78</span>
+                                    </div>
+                                    <p class="event-description">Big screens, drink specials, rowdy crowd. Knicks vs Lakers - playoff implications!</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 6 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                                    <div class="card-avatar">🎧</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Warehouse Techno Rave</h3>
+                                    <div class="event-venue">Secret Location • Bushwick</div>
+                                    <div class="event-meta">
+                                        <span>📍 2.1 mi away</span>
+                                        <span>🕐 Sat 11:00 PM - 6:00 AM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 342</span>
+                                        <span>👀 267</span>
+                                    </div>
+                                    <p class="event-description">International DJs, insane sound system, underground vibes. Address revealed at 10 PM.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 7 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                                    <div class="card-avatar">🧘</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Sunrise Yoga in Central Park</h3>
+                                    <div class="event-venue">Sheep Meadow • Central Park</div>
+                                    <div class="event-meta">
+                                        <span>📍 0.6 mi away</span>
+                                        <span>🕐 Sun 6:30 AM - 8:00 AM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 56</span>
+                                        <span>👀 23</span>
+                                    </div>
+                                    <p class="event-description">Free outdoor session, all levels welcome. Bring your mat, find your zen, meet mindful people.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 8 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #FFD93D, #FF6B6B);">
+                                    <div class="card-avatar">🍺</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Craft Beer Tasting Night</h3>
+                                    <div class="event-venue">Torst • 615 Manhattan Ave</div>
+                                    <div class="event-meta">
+                                        <span>📍 1.5 mi away</span>
+                                        <span>🕐 Thu 7:00 PM - 10:00 PM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 78</span>
+                                        <span>👀 45</span>
+                                    </div>
+                                    <p class="event-description">Sample 20+ local brews, meet the brewers, bar snacks included. $25 ticket gets you a souvenir glass.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 9 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                                    <div class="card-avatar">🎤</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Open Mic Poetry Slam</h3>
+                                    <div class="event-venue">Nuyorican Poets Cafe • 236 E 3rd St</div>
+                                    <div class="event-meta">
+                                        <span>📍 0.4 mi away</span>
+                                        <span>🕐 Wed 8:00 PM - 11:00 PM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 34</span>
+                                        <span>👀 19</span>
+                                    </div>
+                                    <p class="event-description">Spoken word, raw emotion, creative energy. Sign up to perform or just vibe and listen.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 10 -->
+                            <div class="event-card">
+                                <div class="card-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                                    <div class="card-avatar">🛍️</div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="event-title">Vintage Pop-Up Market</h3>
+                                    <div class="event-venue">Artists & Fleas • 70 N 7th St</div>
+                                    <div class="event-meta">
+                                        <span>📍 1.8 mi away</span>
+                                        <span>🕐 Sat 12:00 PM - 7:00 PM</span>
+                                    </div>
+                                    <div class="event-attendance">
+                                        <span>🔥 156</span>
+                                        <span>👀 234</span>
+                                    </div>
+                                    <p class="event-description">Vintage clothing, handmade jewelry, local artists. Thrifting paradise with coffee and live music.</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-button pass" onclick="passEvent()">❌</button>
+                                    <button class="action-button confirm" onclick="confirmEvent()">🔥</button>
+                                    <button class="action-button interested" onclick="interestedEvent()">👀</button>
                                 </div>
                             </div>
                         </div>

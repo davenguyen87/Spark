@@ -15,21 +15,20 @@ const Discovery = {
         this.initCardDragging();
     },
 
-    likeCard: function() {
-        const card = document.querySelector('.user-card:first-child');
+    interestedEvent: function() {
+        const card = document.querySelector('.event-card:first-child');
         if (card) {
             card.style.transform = 'translateX(500px) rotate(20deg)';
             card.style.opacity = '0';
 
             setTimeout(() => {
-                this.showMatch();
                 this.removeCard();
             }, 300);
         }
     },
 
-    rejectCard: function() {
-        const card = document.querySelector('.user-card:first-child');
+    passEvent: function() {
+        const card = document.querySelector('.event-card:first-child');
         if (card) {
             card.style.transform = 'translateX(-500px) rotate(-20deg)';
             card.style.opacity = '0';
@@ -40,26 +39,39 @@ const Discovery = {
         }
     },
 
-    superLikeCard: function() {
-        const card = document.querySelector('.user-card:first-child');
+    confirmEvent: function() {
+        const card = document.querySelector('.event-card:first-child');
         if (card) {
             card.style.transform = 'translateY(-500px) rotate(10deg) scale(0.8)';
             card.style.opacity = '0';
 
             setTimeout(() => {
-                this.showMatch();
+                this.showConfirmation();
                 this.removeCard();
             }, 300);
         }
     },
 
+    // Legacy functions for backward compatibility
+    likeCard: function() {
+        this.interestedEvent();
+    },
+
+    rejectCard: function() {
+        this.passEvent();
+    },
+
+    superLikeCard: function() {
+        this.confirmEvent();
+    },
+
     removeCard: function() {
-        const card = document.querySelector('.user-card:first-child');
+        const card = document.querySelector('.event-card:first-child');
         if (card) {
             card.remove();
 
             // Move other cards up
-            const cards = document.querySelectorAll('.user-card');
+            const cards = document.querySelectorAll('.event-card');
             cards.forEach((card, index) => {
                 if (index === 0) {
                     card.style.transform = 'scale(1)';
@@ -75,8 +87,8 @@ const Discovery = {
         }
     },
 
-    showMatch: function() {
-        document.getElementById('matchOverlay').classList.add('show');
+    showConfirmation: function() {
+        UI.showNotification('Event saved! 🔥');
     },
 
     closeMatch: function() {
@@ -85,7 +97,7 @@ const Discovery = {
     },
 
     initCardDragging: function() {
-        const cards = document.querySelectorAll('.user-card');
+        const cards = document.querySelectorAll('.event-card');
         const firstCard = cards[0];
 
         if (firstCard) {
@@ -138,9 +150,9 @@ const Discovery = {
         if (Math.abs(deltaX) > 100) {
             // Swiped
             if (deltaX > 0) {
-                this.likeCard();
+                this.interestedEvent();
             } else {
-                this.rejectCard();
+                this.passEvent();
             }
         } else {
             // Snap back
@@ -167,6 +179,18 @@ function rejectCard() {
 
 function superLikeCard() {
     Discovery.superLikeCard();
+}
+
+function interestedEvent() {
+    Discovery.interestedEvent();
+}
+
+function passEvent() {
+    Discovery.passEvent();
+}
+
+function confirmEvent() {
+    Discovery.confirmEvent();
 }
 
 function closeMatch() {
