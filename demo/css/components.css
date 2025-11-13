@@ -122,6 +122,7 @@
 /* Cards */
 .user-card {
     position: absolute;
+    top: 0;
     width: calc(100% - 40px);
     left: 20px;
     height: 450px;
