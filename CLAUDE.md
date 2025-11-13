@@ -14,17 +14,76 @@ Enable users to discover social hotspots, connect with verified people nearby, a
 ```
 Spark/
 ├── spark_technical_specification.md  # Complete technical specification
-├── spark-iphone17-demo.html         # Interactive iPhone 17 UI demo
-└── CLAUDE.md                         # This file - AI assistant guide
+├── spark-iphone17-demo.html         # DEPRECATED - See demo/ directory
+├── demo/                            # Interactive UI/UX mockup (refactored)
+│   ├── index.html                   # Main demo page
+│   ├── README.md                    # Demo documentation
+│   ├── css/                         # Stylesheets organized by concern
+│   │   ├── base.css                # Global styles and resets
+│   │   ├── iphone.css              # iPhone 17 frame and Dynamic Island
+│   │   ├── components.css          # Reusable UI components
+│   │   ├── screens.css             # Screen-specific layouts
+│   │   └── animations.css          # Keyframe animations
+│   └── js/                          # JavaScript modules by feature
+│       ├── app.js                  # Main app initialization
+│       ├── navigation.js           # Screen switching logic
+│       ├── map.js                  # Map screen functionality
+│       ├── discovery.js            # Card swiping and matching
+│       ├── sparks.js               # Sparks screen functionality
+│       ├── profile.js              # Profile screen functionality
+│       └── ui.js                   # UI utilities (notifications, etc.)
+└── CLAUDE.md                        # This file - AI assistant guide
 ```
 
 ### Current Development Stage
 **Phase: Early Planning/Prototype**
 - Technical specification complete
-- UI/UX prototype complete (HTML demo)
+- UI/UX prototype complete (HTML demo - modularized)
 - Backend implementation: NOT STARTED
 - Mobile apps: NOT STARTED
 - Infrastructure: NOT STARTED
+
+---
+
+## Demo Directory
+
+The `demo/` directory contains an interactive iPhone 17 mockup of the Spark app. The original monolithic HTML file has been refactored into a modular structure for better development and troubleshooting.
+
+### Demo Architecture
+
+**CSS Organization (5 files):**
+- `base.css` - Global resets, body styles, gradient backgrounds
+- `iphone.css` - iPhone 17 frame, Dynamic Island, status bar, screen structure
+- `components.css` - Reusable components (buttons, badges, cards, toggles, etc.)
+- `screens.css` - Screen-specific layouts (map, discovery, sparks, profile)
+- `animations.css` - All keyframe animations (@keyframes)
+
+**JavaScript Modules (7 files):**
+- `app.js` - Main initialization, global state, real-time updates
+- `navigation.js` - Screen switching and tab navigation
+- `map.js` - Heat map, location services, venue pins, check-in
+- `discovery.js` - Card swiping, drag handlers, matching logic
+- `sparks.js` - Spark requests, acceptance/decline, notifications
+- `profile.js` - Settings toggles, profile interactions
+- `ui.js` - Dynamic Island, notifications, loading states
+
+**Benefits of Refactored Structure:**
+- Separation of concerns (CSS by purpose, JS by feature)
+- Easier debugging (find issues in specific modules)
+- Better maintainability (modify one aspect without touching others)
+- Reusable components (extract and reuse in production)
+- Faster development (work on different parts simultaneously)
+- Clear code organization (developers know where to look)
+
+### Running the Demo
+
+```bash
+cd demo
+python3 -m http.server 8080
+# Open http://localhost:8080
+```
+
+See `demo/README.md` for complete documentation.
 
 ---
 
@@ -549,7 +608,10 @@ Before any launch phase, verify:
 
 ### Internal Documentation
 - `spark_technical_specification.md` - Complete technical specification
-- `spark-iphone17-demo.html` - Interactive UI/UX prototype
+- `demo/` - Interactive UI/UX mockup (modularized)
+  - `demo/README.md` - Demo documentation and usage guide
+  - `demo/index.html` - Interactive iPhone 17 prototype
+- `spark-iphone17-demo.html` - DEPRECATED (see demo/ directory)
 
 ### External Resources (Planned)
 - API Documentation (not yet created)
@@ -560,6 +622,13 @@ Before any launch phase, verify:
 ---
 
 ## Version History
+
+- **v1.1** (2025-11-13): Demo refactoring
+  - Refactored monolithic HTML demo into modular structure
+  - Created demo/ directory with organized CSS and JS files
+  - Added demo/README.md with comprehensive documentation
+  - Updated repository structure documentation
+  - Deprecated spark-iphone17-demo.html in favor of demo/ directory
 
 - **v1.0** (2025-11-13): Initial CLAUDE.md creation
   - Project overview and structure
