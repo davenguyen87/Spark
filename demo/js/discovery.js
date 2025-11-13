@@ -102,10 +102,14 @@ const Discovery = {
         this.startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
         this.startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
 
-        document.addEventListener('mousemove', (e) => this.drag(e));
-        document.addEventListener('touchmove', (e) => this.drag(e));
-        document.addEventListener('mouseup', (e) => this.endDrag(e));
-        document.addEventListener('touchend', (e) => this.endDrag(e));
+        // Bind handlers so they can be properly removed later
+        this.boundDrag = this.drag.bind(this);
+        this.boundEndDrag = this.endDrag.bind(this);
+
+        document.addEventListener('mousemove', this.boundDrag);
+        document.addEventListener('touchmove', this.boundDrag);
+        document.addEventListener('mouseup', this.boundEndDrag);
+        document.addEventListener('touchend', this.boundEndDrag);
     },
 
     drag: function(e) {
@@ -144,10 +148,11 @@ const Discovery = {
             this.dragCard.style.opacity = '';
         }
 
-        document.removeEventListener('mousemove', (e) => this.drag(e));
-        document.removeEventListener('touchmove', (e) => this.drag(e));
-        document.removeEventListener('mouseup', (e) => this.endDrag(e));
-        document.removeEventListener('touchend', (e) => this.endDrag(e));
+        // Remove bound event listeners
+        document.removeEventListener('mousemove', this.boundDrag);
+        document.removeEventListener('touchmove', this.boundDrag);
+        document.removeEventListener('mouseup', this.boundEndDrag);
+        document.removeEventListener('touchend', this.boundEndDrag);
     }
 };
 
