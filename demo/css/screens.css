@@ -191,6 +191,8 @@
 /* Profile Screen */
 .profile-screen {
     background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .profile-header {
@@ -240,6 +242,8 @@
     margin-right: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .profile-stat {
@@ -248,6 +252,8 @@
 
 .profile-content {
     padding: 20px;
+    padding-bottom: 40px;
+    min-height: 400px;
 }
 
 .settings-section {
