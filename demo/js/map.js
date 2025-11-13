@@ -1,107 +1,169 @@
 /**
- * Map Screen Functionality - NYC Edition
+ * Map Screen Functionality - Leaflet.js + OpenStreetMap Edition
+ * Free map service - No API keys required!
  */
 
 const Map = {
+    map: null,
+    heatLayer: null,
+    markers: [],
+
     init: function() {
-        console.log('Map module initialized with NYC data');
-        this.renderHeatSpots();
-        this.renderVenues();
-        this.initVenuePins();
-    },
+        console.log('Map module initialized with Leaflet + OpenStreetMap');
 
-    renderHeatSpots: function() {
-        if (!window.NYCData) {
-            console.warn('NYC data not loaded yet');
+        // Wait for DOM and Leaflet to be ready
+        if (typeof L === 'undefined') {
+            console.warn('Leaflet not loaded yet, retrying...');
+            setTimeout(() => this.init(), 100);
             return;
         }
 
-        const mapContainer = document.getElementById('mapContainer');
-
-        // Clear existing heat spots
-        const existingSpots = mapContainer.querySelectorAll('.heat-spot');
-        existingSpots.forEach(spot => spot.remove());
-
-        // Render heat spots from NYC data
-        NYCData.heatSpots.forEach(spot => {
-            const heatSpot = document.createElement('div');
-            heatSpot.className = `heat-spot ${spot.intensity}`;
-            heatSpot.style.width = spot.size;
-            heatSpot.style.height = spot.size;
-            heatSpot.style.top = spot.position.top;
-            heatSpot.style.left = spot.position.left;
-            mapContainer.appendChild(heatSpot);
-        });
-    },
-
-    renderVenues: function() {
         if (!window.NYCData) {
-            console.warn('NYC data not loaded yet');
+            console.warn('NYC data not loaded yet, retrying...');
+            setTimeout(() => this.init(), 100);
             return;
         }
 
-        const mapContainer = document.getElementById('mapContainer');
+        this.initMap();
+    },
 
-        // Clear existing venue pins
-        const existingPins = mapContainer.querySelectorAll('.venue-pin');
-        existingPins.forEach(pin => pin.remove());
+    initMap: function() {
+        const mapEl = document.getElementById('map');
 
-        // Render venues from NYC data
+        if (!mapEl) {
+            console.error('Map element not found');
+            return;
+        }
+
+        // Initialize Leaflet map centered on NYC
+        this.map = L.map('map', {
+            zoomControl: true,
+            attributionControl: false  // Clean look for demo
+        }).setView([NYCData.center.lat, NYCData.center.lng], NYCData.center.zoom);
+
+        // Add OpenStreetMap tiles (Free, No API Key!)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(this.map);
+
+        // Render heat map layer
+        this.renderHeatMap();
+
+        // Render venue markers
+        this.renderVenueMarkers();
+
+        // Fix map size after initialization
+        setTimeout(() => {
+            if (this.map) {
+                this.map.invalidateSize();
+            }
+        }, 100);
+    },
+
+    renderHeatMap: function() {
+        if (!this.map || !window.L.heat) {
+            console.warn('Heat map plugin not loaded');
+            return;
+        }
+
+        // Create heat layer with NYC data
+        this.heatLayer = L.heatLayer(NYCData.heatMapData, {
+            radius: 25,
+            blur: 35,
+            maxZoom: 17,
+            max: 1.0,
+            gradient: {
+                0.0: 'blue',
+                0.3: 'cyan',
+                0.5: 'lime',
+                0.7: 'yellow',
+                1.0: 'red'
+            }
+        }).addTo(this.map);
+    },
+
+    renderVenueMarkers: function() {
+        if (!this.map) {
+            console.warn('Map not initialized');
+            return;
+        }
+
+        // Clear existing markers
+        this.markers.forEach(marker => marker.remove());
+        this.markers = [];
+
+        // Add custom markers for each venue
         NYCData.venues.forEach(venue => {
-            const venuePin = document.createElement('div');
-            venuePin.className = 'venue-pin';
-            venuePin.style.top = venue.position.top;
-            venuePin.style.left = venue.position.left;
-            venuePin.dataset.venueId = venue.id;
+            // Create custom icon based on intensity
+            const iconColor = venue.intensity === 'hot' ? '#FF6B6B' :
+                            venue.intensity === 'warm' ? '#FFD93D' : '#6BCF7F';
 
-            venuePin.innerHTML = `
-                <div class="pin-bubble">
-                    <div class="pin-icon ${venue.intensity}">${venue.emoji}</div>
-                    <div>
-                        <div style="font-weight: 600;">${venue.name}</div>
-                        <div style="font-size: 10px; color: #666;">${venue.people} people</div>
-                    </div>
+            // Create custom HTML icon with emoji
+            const customIcon = L.divIcon({
+                className: 'custom-marker',
+                html: `
+                    <div style="
+                        background: ${iconColor};
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 20px;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                        border: 3px solid white;
+                        cursor: pointer;
+                    ">${venue.emoji}</div>
+                `,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            // Create marker
+            const marker = L.marker([venue.lat, venue.lng], {
+                icon: customIcon,
+                title: venue.name
+            }).addTo(this.map);
+
+            // Add popup with venue details
+            const popupContent = `
+                <div style="text-align: center; min-width: 150px;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">${venue.emoji}</div>
+                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${venue.name}</div>
+                    <div style="color: #666; font-size: 12px;">${venue.people} people</div>
+                    <div style="color: #999; font-size: 11px; margin-top: 4px;">${venue.neighborhood}</div>
                 </div>
             `;
 
-            mapContainer.appendChild(venuePin);
-        });
-    },
+            marker.bindPopup(popupContent);
 
-    initVenuePins: function() {
-        // Animate venue pins on hover
-        document.querySelectorAll('.venue-pin').forEach(pin => {
-            pin.addEventListener('click', function() {
-                const bubble = this.querySelector('.pin-bubble');
-                const name = bubble.querySelector('div div:first-child').textContent;
-                UI.showNotification(`Opening ${name} details...`);
+            // Click handler
+            marker.on('click', () => {
+                UI.showNotification(`Viewing ${venue.name} ${venue.emoji}`);
             });
+
+            this.markers.push(marker);
         });
     },
 
     enableLocation: function() {
         AppState.locationEnabled = true;
         this.hideLocationOverlay();
-        UI.showNotification("Location enabled! You're now visible on the map.");
+        UI.showNotification("Location enabled! You're now visible on the map in NYC 🗽");
 
-        // Animate heat spots
-        this.animateHeatMap();
+        // Animate to a random venue
+        if (this.map && NYCData.venues.length > 0) {
+            const randomVenue = NYCData.venues[Math.floor(Math.random() * NYCData.venues.length)];
+            this.map.flyTo([randomVenue.lat, randomVenue.lng], 15, {
+                duration: 2
+            });
+        }
     },
 
     hideLocationOverlay: function() {
         document.getElementById('locationOverlay').classList.remove('show');
-    },
-
-    animateHeatMap: function() {
-        const heatSpots = document.querySelectorAll('.heat-spot');
-        heatSpots.forEach((spot, index) => {
-            setTimeout(() => {
-                spot.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    spot.style.transform = 'scale(1)';
-                }, 300);
-            }, index * 100);
-        });
     },
 
     checkIn: function() {
@@ -112,12 +174,12 @@ const Map = {
 
         UI.showNotification(`Checked in at ${randomVenue.name} ${randomVenue.emoji} +50 points earned 🎉`);
 
-        // Animate FAB
-        const fab = document.querySelector('.fab');
-        fab.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-            fab.style.transform = 'scale(1)';
-        }, 200);
+        // Fly to the venue on the map
+        if (this.map && randomVenue.lat && randomVenue.lng) {
+            this.map.flyTo([randomVenue.lat, randomVenue.lng], 16, {
+                duration: 1.5
+            });
+        }
     }
 };
 

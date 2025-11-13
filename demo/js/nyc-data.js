@@ -1,8 +1,16 @@
 /**
- * NYC Venue Data - Real locations in New York City
+ * NYC Venue Data - Real locations with actual coordinates
+ * Uses Leaflet.js + OpenStreetMap (Free, No API Key Required!)
  */
 
 const NYCData = {
+    // NYC center coordinates for initial map view
+    center: {
+        lat: 40.7589,
+        lng: -73.9851,
+        zoom: 12
+    },
+
     venues: [
         // Lower Manhattan / Financial District
         {
@@ -12,7 +20,8 @@ const NYCData = {
             emoji: "🌊",
             people: 234,
             intensity: "hot",
-            position: { top: "80%", left: "57%" },
+            lat: 40.7069,
+            lng: -74.0031,
             neighborhood: "Financial District"
         },
         {
@@ -22,7 +31,8 @@ const NYCData = {
             emoji: "🍻",
             people: 156,
             intensity: "warm",
-            position: { top: "78%", left: "56%" },
+            lat: 40.7044,
+            lng: -74.0115,
             neighborhood: "Financial District"
         },
 
@@ -34,19 +44,21 @@ const NYCData = {
             emoji: "🍺",
             people: 89,
             intensity: "warm",
-            position: { top: "72%", left: "54%" },
+            lat: 40.7234,
+            lng: -73.9978,
             neighborhood: "SoHo"
         },
 
         // East Village / LES
         {
             id: 4,
-            name: "Tompkins Square",
+            name: "Tompkins Square Park",
             type: "park",
             emoji: "🌳",
             people: 67,
             intensity: "cool",
-            position: { top: "66%", left: "56%" },
+            lat: 40.7264,
+            lng: -73.9818,
             neighborhood: "East Village"
         },
         {
@@ -56,7 +68,8 @@ const NYCData = {
             emoji: "🎵",
             people: 142,
             intensity: "warm",
-            position: { top: "67%", left: "57%" },
+            lat: 40.7247,
+            lng: -73.9776,
             neighborhood: "East Village"
         },
 
@@ -68,7 +81,8 @@ const NYCData = {
             emoji: "🏛️",
             people: 178,
             intensity: "warm",
-            position: { top: "62%", left: "53%" },
+            lat: 40.7359,
+            lng: -73.9911,
             neighborhood: "Union Square"
         },
 
@@ -80,17 +94,19 @@ const NYCData = {
             emoji: "🍕",
             people: 267,
             intensity: "hot",
-            position: { top: "58%", left: "51%" },
+            lat: 40.7423,
+            lng: -74.0048,
             neighborhood: "Chelsea"
         },
         {
             id: 8,
-            name: "The Highline",
+            name: "The High Line",
             type: "park",
             emoji: "🌿",
             people: 198,
             intensity: "hot",
-            position: { top: "56%", left: "50%" },
+            lat: 40.7480,
+            lng: -74.0048,
             neighborhood: "Chelsea"
         },
 
@@ -102,7 +118,8 @@ const NYCData = {
             emoji: "🎭",
             people: 423,
             intensity: "hot",
-            position: { top: "48%", left: "52%" },
+            lat: 40.7580,
+            lng: -73.9855,
             neighborhood: "Midtown"
         },
         {
@@ -112,7 +129,8 @@ const NYCData = {
             emoji: "📚",
             people: 134,
             intensity: "warm",
-            position: { top: "47%", left: "53%" },
+            lat: 40.7536,
+            lng: -73.9832,
             neighborhood: "Midtown"
         },
         {
@@ -122,7 +140,8 @@ const NYCData = {
             emoji: "🍜",
             people: 156,
             intensity: "warm",
-            position: { top: "50%", left: "49%" },
+            lat: 40.7645,
+            lng: -73.9920,
             neighborhood: "Hell's Kitchen"
         },
 
@@ -134,7 +153,8 @@ const NYCData = {
             emoji: "🎨",
             people: 234,
             intensity: "hot",
-            position: { top: "38%", left: "54%" },
+            lat: 40.7794,
+            lng: -73.9632,
             neighborhood: "Upper East Side"
         },
 
@@ -146,7 +166,8 @@ const NYCData = {
             emoji: "🎭",
             people: 167,
             intensity: "warm",
-            position: { top: "42%", left: "49%" },
+            lat: 40.7723,
+            lng: -73.9835,
             neighborhood: "Upper West Side"
         },
 
@@ -158,7 +179,8 @@ const NYCData = {
             emoji: "🌲",
             people: 312,
             intensity: "hot",
-            position: { top: "40%", left: "51.5%" },
+            lat: 40.7829,
+            lng: -73.9654,
             neighborhood: "Central Park"
         },
 
@@ -170,7 +192,8 @@ const NYCData = {
             emoji: "🎸",
             people: 245,
             intensity: "hot",
-            position: { top: "70%", left: "62%" },
+            lat: 40.7213,
+            lng: -73.9576,
             neighborhood: "Williamsburg"
         },
         {
@@ -180,7 +203,8 @@ const NYCData = {
             emoji: "🍔",
             people: 189,
             intensity: "warm",
-            position: { top: "72%", left: "63%" },
+            lat: 40.7208,
+            lng: -73.9578,
             neighborhood: "Williamsburg"
         },
 
@@ -192,7 +216,8 @@ const NYCData = {
             emoji: "🌉",
             people: 201,
             intensity: "hot",
-            position: { top: "76%", left: "60%" },
+            lat: 40.7024,
+            lng: -73.9875,
             neighborhood: "DUMBO"
         },
 
@@ -204,7 +229,8 @@ const NYCData = {
             emoji: "🏙️",
             people: 98,
             intensity: "cool",
-            position: { top: "60%", left: "68%" },
+            lat: 40.7447,
+            lng: -73.9580,
             neighborhood: "Long Island City"
         },
 
@@ -216,61 +242,44 @@ const NYCData = {
             emoji: "🍺",
             people: 176,
             intensity: "warm",
-            position: { top: "52%", left: "72%" },
+            lat: 40.7691,
+            lng: -73.9296,
             neighborhood: "Astoria"
         }
     ],
 
-    // Heat map spots aligned with NYC geography
-    heatSpots: [
+    // Heat map data points (lat, lng, intensity)
+    heatMapData: [
         // Lower Manhattan cluster
-        {
-            size: "200px",
-            intensity: "hot",
-            position: { top: "78%", left: "56%" }
-        },
+        [40.7069, -74.0031, 0.9],  // Financial District
+        [40.7044, -74.0115, 0.8],
+
         // East Village cluster
-        {
-            size: "150px",
-            intensity: "warm",
-            position: { top: "66%", left: "56%" }
-        },
+        [40.7264, -73.9818, 0.7],
+        [40.7247, -73.9776, 0.8],
+
         // Midtown cluster
-        {
-            size: "220px",
-            intensity: "hot",
-            position: { top: "48%", left: "52%" }
-        },
+        [40.7580, -73.9855, 1.0],  // Times Square - hottest
+        [40.7536, -73.9832, 0.7],
+        [40.7645, -73.9920, 0.7],
+
         // Central Park area
-        {
-            size: "180px",
-            intensity: "warm",
-            position: { top: "40%", left: "51%" }
-        },
+        [40.7829, -73.9654, 0.8],
+        [40.7794, -73.9632, 0.8],
+
         // Chelsea/Meatpacking
-        {
-            size: "190px",
-            intensity: "hot",
-            position: { top: "57%", left: "51%" }
-        },
+        [40.7423, -74.0048, 0.9],
+        [40.7480, -74.0048, 0.8],
+
         // Williamsburg cluster
-        {
-            size: "170px",
-            intensity: "warm",
-            position: { top: "70%", left: "62%" }
-        },
-        // Upper East Side
-        {
-            size: "140px",
-            intensity: "cool",
-            position: { top: "38%", left: "54%" }
-        },
+        [40.7213, -73.9576, 0.8],
+        [40.7208, -73.9578, 0.7],
+
+        // Upper areas
+        [40.7723, -73.9835, 0.7],
+
         // DUMBO/Brooklyn Heights
-        {
-            size: "160px",
-            intensity: "warm",
-            position: { top: "76%", left: "60%" }
-        }
+        [40.7024, -73.9875, 0.8]
     ],
 
     // Sample user profiles for Discovery screen (NYC residents)

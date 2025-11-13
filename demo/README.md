@@ -9,34 +9,33 @@ An interactive, **100% browser-based** mockup of the Spark social discovery app 
 ## Overview
 
 This demo showcases the complete UI/UX design of Spark with **real NYC locations**, including:
-- **NYC Vector Map** - Custom SVG map of Manhattan, Brooklyn, Queens, Bronx, and New Jersey
+- **Professional Map** - Leaflet.js + OpenStreetMap (looks like Google Maps, but free!)
 - **19 Real NYC Venues** - From Times Square to Williamsburg, Chelsea Market to Central Park
-- Real-time heat map visualization showing hotspots across NYC
+- **Heat Map Layer** - Visualize activity hotspots across NYC with gradient colors
+- **Interactive Markers** - Click any venue to see details, people count, and neighborhood
 - Tinder-style card swiping for discovery with NYC residents
 - Spark connection system
 - User profiles with gamification
 - iPhone 17 Dynamic Island integration
 
-**Technology:** Pure HTML5, CSS3, and vanilla JavaScript—no frameworks, no dependencies (except Font Awesome CDN for icons). **No API keys required** - all map data is embedded.
+**Technology:** Pure HTML5, CSS3, vanilla JavaScript + **Leaflet.js** map library. **No API keys required** - OpenStreetMap is completely free!
 
 ## File Structure
 
 ```
 demo/
 ├── index.html              # Main HTML file
-├── assets/                 # Static assets
-│   └── nyc-map.svg        # 🗽 Custom NYC vector map (no API key!)
 ├── css/                    # Stylesheets organized by concern
 │   ├── base.css           # Global styles, reset, body, gradients
 │   ├── iphone.css         # iPhone 17 frame, Dynamic Island, status bar
 │   ├── components.css     # Reusable components (buttons, cards, badges)
-│   ├── screens.css        # Screen-specific layouts (NYC map loaded here)
+│   ├── screens.css        # Screen-specific layouts (Leaflet map container)
 │   └── animations.css     # Keyframe animations and transitions
 ├── js/                     # JavaScript modules by feature
-│   ├── nyc-data.js        # 🗽 19 Real NYC venues, heat spots, user profiles
+│   ├── nyc-data.js        # 🗽 19 Real NYC venues with lat/lng coordinates
 │   ├── app.js             # Main app initialization and state
 │   ├── navigation.js      # Screen switching logic
-│   ├── map.js             # Map screen with NYC rendering
+│   ├── map.js             # 🗺️ Leaflet + OpenStreetMap integration
 │   ├── discovery.js       # Card swiping and matching
 │   ├── sparks.js          # Sparks screen functionality
 │   ├── profile.js         # Profile screen functionality
@@ -49,12 +48,13 @@ demo/
 
 The demo features **real New York City locations** without requiring any API keys:
 
-### Vector Map
-- **Custom SVG map** (`assets/nyc-map.svg`) shows Manhattan, Brooklyn, Queens, Bronx, and New Jersey
-- Includes rivers (Hudson, East River), parks (Central Park, Prospect Park), and major landmarks
-- Styled with gradients for water and land
-- Street grid overlay for Manhattan
-- No external API calls - completely self-contained
+### Map Technology
+- **Leaflet.js** - Popular open-source mapping library
+- **OpenStreetMap tiles** - Free map tiles that look like Google Maps
+- **Leaflet.heat plugin** - Heat map visualization layer
+- Zoom, pan, and click interactions built-in
+- No API keys, no rate limits, completely free
+- Professional quality map rendering
 
 ### Real Venues (19 locations)
 All venues in `js/nyc-data.js` are real NYC hotspots:
@@ -77,10 +77,11 @@ All venues in `js/nyc-data.js` are real NYC hotspots:
 - Pier 17 (Financial District)
 - Alphabet City Bars (East Village)
 
-### Heat Map Positioning
-Heat spots are strategically placed to show realistic NYC hotspot clusters:
+### Heat Map Visualization
+Real-time heat map layer shows activity intensity:
+- **Blue → Cyan → Green → Yellow → Red** gradient
 - Lower Manhattan (Financial District)
-- Midtown (Times Square area)
+- Midtown (Times Square area - hottest)
 - Chelsea/Meatpacking District
 - East Village
 - Central Park area
@@ -88,7 +89,7 @@ Heat spots are strategically placed to show realistic NYC hotspot clusters:
 - Upper East Side
 - DUMBO/Brooklyn Heights
 
-All positions use percentage-based coordinates to align with the vector map.
+All venues use actual GPS coordinates for accurate positioning on the map.
 
 ## Architecture
 
