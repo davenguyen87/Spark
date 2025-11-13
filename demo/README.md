@@ -1,6 +1,10 @@
 # Spark iPhone 17 Demo
 
-An interactive mockup of the Spark social discovery app designed for iPhone 17, featuring Dynamic Island integration and modern iOS design patterns.
+An interactive, **100% browser-based** mockup of the Spark social discovery app designed for iPhone 17. No installation, no build process, no server required—just open and run!
+
+## 🚀 Quick Start
+
+**Double-click `index.html` to run the demo instantly in your browser.**
 
 ## Overview
 
@@ -10,6 +14,8 @@ This demo showcases the complete UI/UX design of Spark, including:
 - Spark connection system
 - User profiles with gamification
 - iPhone 17 Dynamic Island integration
+
+**Technology:** Pure HTML5, CSS3, and vanilla JavaScript—no frameworks, no dependencies (except Font Awesome CDN for icons).
 
 ## File Structure
 
@@ -108,29 +114,41 @@ demo/
 
 ## Running the Demo
 
-### Option 1: Python HTTP Server
+### ⚡ Easiest Way - Just Open It!
+
+**Simply double-click `index.html` or drag it into your browser.**
+
+That's it! The demo is 100% static HTML5/CSS/JavaScript with no server required.
+
+```bash
+# On macOS/Linux
+open demo/index.html
+
+# On Windows
+start demo/index.html
+
+# Or just double-click the file in your file explorer
+```
+
+### Alternative: Local Server (Optional)
+
+If you prefer to run a local server (not necessary, but available):
+
+**Python:**
 ```bash
 cd demo
 python3 -m http.server 8080
-# Open http://localhost:8080 in your browser
+# Open http://localhost:8080
 ```
 
-### Option 2: Node.js HTTP Server
+**Node.js:**
 ```bash
 cd demo
 npx http-server -p 8080
-# Open http://localhost:8080 in your browser
+# Open http://localhost:8080
 ```
 
-### Option 3: PHP Built-in Server
-```bash
-cd demo
-php -S localhost:8080
-# Open http://localhost:8080 in your browser
-```
-
-### Option 4: Direct File Open
-Simply open `index.html` in your browser (some features may be limited without a server).
+**Note:** All features work with direct file opening. A local server is completely optional.
 
 ## Features
 

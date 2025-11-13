@@ -77,13 +77,24 @@ The `demo/` directory contains an interactive iPhone 17 mockup of the Spark app.
 
 ### Running the Demo
 
+**The demo is 100% static HTML5 and runs directly in any browser:**
+
 ```bash
-cd demo
-python3 -m http.server 8080
-# Open http://localhost:8080
+# Easiest way - just open the file
+open demo/index.html
+
+# Or double-click demo/index.html in your file explorer
 ```
 
-See `demo/README.md` for complete documentation.
+**No server, no build process, no installation required!**
+
+The demo uses:
+- Pure HTML5/CSS3/JavaScript (no frameworks)
+- Only external dependency: Font Awesome CDN for icons
+- All assets are self-contained or loaded from CDN
+- Works with direct file:// protocol
+
+See `demo/README.md` for complete documentation and development guidelines.
 
 ---
 
