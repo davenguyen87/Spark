@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-**Spark** is a location-based social discovery platform that combines real-time heat maps, verified user connections, and gamification to facilitate safe in-person meetups. Think of it as Snapchat Map + Foursquare + Tinder verification.
+**Spark** is a location-based event discovery platform that combines real-time heat maps, verified user connections, and gamification to facilitate safe in-person meetups through shared events. Think of it as Snapchat Map + Eventbrite + Tinder verification.
 
 ### Core Mission
-Enable users to discover social hotspots, connect with verified people nearby, and meet in-person safely through a privacy-preserving, gamified experience.
+Enable users to discover events happening nearby, connect with people through shared event interest, and meet in-person safely through a privacy-preserving, gamified experience.
 
 ---
 
@@ -62,10 +62,10 @@ The `demo/` directory contains an interactive iPhone 17 mockup of the Spark app.
 - `app.js` - Main initialization, global state, real-time updates
 - `navigation.js` - Screen switching and tab navigation
 - `map.js` - Heat map, location services, venue pins, check-in
-- `discovery.js` - Card swiping, drag handlers, matching logic
-- `sparks.js` - Spark requests, acceptance/decline, notifications
-- `profile.js` - Settings toggles, profile interactions
-- `ui.js` - Dynamic Island, notifications, loading states
+- `discovery.js` - Event card swiping, Pass/Interested/Confirm actions (❌/👀/🔥), event confirmation
+- `sparks.js` - Event connection requests, acceptance/decline, notifications
+- `profile.js` - Settings toggles, event-focused profile interactions
+- `ui.js` - Dynamic Island, event notifications, loading states
 
 **Benefits of Refactored Structure:**
 - Separation of concerns (CSS by purpose, JS by feature)
@@ -633,6 +633,16 @@ Before any launch phase, verify:
 ---
 
 ## Version History
+
+- **v1.2** (2025-11-13): Event Discovery Transformation
+  - Transformed Discovery section from people matching to event discovery
+  - Implemented 10 diverse NYC events (jazz, food, comedy, art, sports, nightlife, wellness, etc.)
+  - Gen Z UI with emoji-based interactions: ❌ Pass, 🔥 Confirm, 👀 Interested
+  - Event cards show venue, address, distance, time, 🔥 confirmed count, 👀 interested count
+  - Converted Sparks to event-based connections (meet people through shared events)
+  - Updated Profile stats: Events Attended, Connections Made, Confirmed Upcoming
+  - Fixed blank Discover section (CSS positioning + event listener bugs)
+  - Updated all documentation to reflect event-focused platform
 
 - **v1.1** (2025-11-13): Demo refactoring
   - Refactored monolithic HTML demo into modular structure
