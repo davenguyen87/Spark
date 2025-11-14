@@ -4,9 +4,9 @@
 
 const Sparks = {
     stats: {
-        sent: 12,
-        received: 5,
-        matches: 3
+        confirmed: 7,      // Events user has confirmed attendance
+        interested: 12,    // Events user marked as interested
+        attended: 3        // Events user has attended
     },
 
     init: function() {
@@ -41,26 +41,25 @@ const Sparks = {
     updateStats: function() {
         const statNumbers = document.querySelectorAll('.sparks-stats .stat-number');
         if (statNumbers.length >= 3) {
-            statNumbers[0].textContent = this.stats.sent;
-            statNumbers[1].textContent = this.stats.received;
-            statNumbers[2].textContent = this.stats.matches;
+            // Preserve emoji formatting
+            statNumbers[0].textContent = `🔥 ${this.stats.confirmed}`;
+            statNumbers[1].textContent = `👀 ${this.stats.interested}`;
+            statNumbers[2].textContent = this.stats.attended;
         }
     },
 
     acceptSpark: function(sparkElement) {
-        UI.showNotification("Spark accepted! You can now chat 💬");
+        UI.showNotification("Event connection accepted! You can now chat 💬");
         sparkElement.style.transform = 'translateX(500px)';
         sparkElement.style.opacity = '0';
         sparkElement.style.transition = 'all 0.3s ease';
 
-        // Update stats
-        this.stats.matches++;
-        this.stats.received--;
+        // Note: Accepting a spark creates a connection but doesn't change event RSVP status
+        // Event stats (confirmed/interested/attended) are updated in Discovery screen
 
         setTimeout(() => {
             sparkElement.remove();
             this.updateSparkCount();
-            this.updateStats();
             this.checkEmptyState();
         }, 300);
     },
@@ -70,13 +69,12 @@ const Sparks = {
         sparkElement.style.opacity = '0';
         sparkElement.style.transition = 'all 0.3s ease';
 
-        // Update stats
-        this.stats.received--;
+        // Note: Declining a spark just removes the connection request
+        // Event stats remain unchanged
 
         setTimeout(() => {
             sparkElement.remove();
             this.updateSparkCount();
-            this.updateStats();
             this.checkEmptyState();
         }, 300);
     },

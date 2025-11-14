@@ -42,16 +42,6 @@ function startRealtimeUpdates() {
         const minutes = now.getMinutes().toString().padStart(2, '0');
         const timeString = `${hours}:${minutes}`;
         document.querySelector('.status-time').textContent = timeString;
-
-        // Randomly animate heat spots
-        if (Math.random() > 0.7) {
-            const spots = document.querySelectorAll('.heat-spot');
-            const randomSpot = spots[Math.floor(Math.random() * spots.length)];
-            randomSpot.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                randomSpot.style.transform = 'scale(1)';
-            }, 500);
-        }
     }, 5000);
 }
 

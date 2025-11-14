@@ -2,6 +2,15 @@
  * Discovery Screen - Card Swiping and Matching
  */
 
+// Constants for card animations and interactions
+const CARD_ANIMATION = {
+    DURATION: 300,              // Animation duration in ms
+    SWIPE_THRESHOLD: 100,       // Minimum swipe distance in px
+    ROTATION_MULTIPLIER: 0.1,   // Rotation based on swipe distance
+    OPACITY_DIVISOR: 300,       // Fade out speed
+    DISTANCE: 500               // Card exit distance in px
+};
+
 const Discovery = {
     isDragging: false,
     startX: 0,
@@ -17,39 +26,48 @@ const Discovery = {
 
     interestedEvent: function() {
         const card = document.querySelector('.event-card:first-child');
-        if (card) {
-            card.style.transform = 'translateX(500px) rotate(20deg)';
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                this.removeCard();
-            }, 300);
+        if (!card) {
+            console.warn('No event card available');
+            return;
         }
+
+        card.style.transform = `translateX(${CARD_ANIMATION.DISTANCE}px) rotate(20deg)`;
+        card.style.opacity = '0';
+
+        setTimeout(() => {
+            this.removeCard();
+        }, CARD_ANIMATION.DURATION);
     },
 
     passEvent: function() {
         const card = document.querySelector('.event-card:first-child');
-        if (card) {
-            card.style.transform = 'translateX(-500px) rotate(-20deg)';
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                this.removeCard();
-            }, 300);
+        if (!card) {
+            console.warn('No event card available');
+            return;
         }
+
+        card.style.transform = `translateX(-${CARD_ANIMATION.DISTANCE}px) rotate(-20deg)`;
+        card.style.opacity = '0';
+
+        setTimeout(() => {
+            this.removeCard();
+        }, CARD_ANIMATION.DURATION);
     },
 
     confirmEvent: function() {
         const card = document.querySelector('.event-card:first-child');
-        if (card) {
-            card.style.transform = 'translateY(-500px) rotate(10deg) scale(0.8)';
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                this.showConfirmation();
-                this.removeCard();
-            }, 300);
+        if (!card) {
+            console.warn('No event card available');
+            return;
         }
+
+        card.style.transform = `translateY(-${CARD_ANIMATION.DISTANCE}px) rotate(10deg) scale(0.8)`;
+        card.style.opacity = '0';
+
+        setTimeout(() => {
+            this.showConfirmation();
+            this.removeCard();
+        }, CARD_ANIMATION.DURATION);
     },
 
     // Legacy functions for backward compatibility
@@ -133,10 +151,10 @@ const Discovery = {
 
         const deltaX = this.currentX - this.startX;
         const deltaY = this.currentY - this.startY;
-        const rotation = deltaX * 0.1;
+        const rotation = deltaX * CARD_ANIMATION.ROTATION_MULTIPLIER;
 
         this.dragCard.style.transform = `translateX(${deltaX}px) translateY(${deltaY}px) rotate(${rotation}deg)`;
-        this.dragCard.style.opacity = 1 - Math.abs(deltaX) / 300;
+        this.dragCard.style.opacity = 1 - Math.abs(deltaX) / CARD_ANIMATION.OPACITY_DIVISOR;
     },
 
     endDrag: function(e) {
@@ -147,7 +165,7 @@ const Discovery = {
 
         const deltaX = this.currentX - this.startX;
 
-        if (Math.abs(deltaX) > 100) {
+        if (Math.abs(deltaX) > CARD_ANIMATION.SWIPE_THRESHOLD) {
             // Swiped
             if (deltaX > 0) {
                 this.interestedEvent();
