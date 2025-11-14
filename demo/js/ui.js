@@ -25,12 +25,26 @@ const UI = {
     showNotification: function(message) {
         this.expandDynamicIsland();
         const islandContent = document.querySelector('.island-content');
-        islandContent.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="font-size: 24px;">✅</div>
-                <div style="font-weight: 600;">${message}</div>
-            </div>
-        `;
+
+        // Create elements safely to prevent XSS
+        const container = document.createElement('div');
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.gap = '10px';
+
+        const icon = document.createElement('div');
+        icon.style.fontSize = '24px';
+        icon.textContent = '✅';
+
+        const text = document.createElement('div');
+        text.style.fontWeight = '600';
+        text.textContent = message;  // Safe - uses textContent instead of innerHTML
+
+        container.appendChild(icon);
+        container.appendChild(text);
+
+        islandContent.innerHTML = '';
+        islandContent.appendChild(container);
 
         setTimeout(() => {
             this.collapseDynamicIsland();

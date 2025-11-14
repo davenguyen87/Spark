@@ -20,28 +20,6 @@
     z-index: 1;
 }
 
-/* Heat Map Overlay */
-.heat-spot {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(30px);
-    animation: pulse 3s ease-in-out infinite;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.heat-spot.hot {
-    background: radial-gradient(circle, rgba(255,87,34,0.8) 0%, rgba(255,87,34,0.3) 50%, transparent 70%);
-}
-
-.heat-spot.warm {
-    background: radial-gradient(circle, rgba(255,193,7,0.8) 0%, rgba(255,193,7,0.3) 50%, transparent 70%);
-}
-
-.heat-spot.cool {
-    background: radial-gradient(circle, rgba(76,175,80,0.6) 0%, rgba(76,175,80,0.2) 50%, transparent 70%);
-}
-
 /* Venue Pins */
 .venue-pin {
     position: absolute;

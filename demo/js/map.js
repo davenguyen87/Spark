@@ -7,13 +7,20 @@ const Map = {
     map: null,
     heatLayer: null,
     markers: [],
+    retryCount: 0,
+    maxRetries: 30, // 3 seconds max (30 * 100ms)
 
     init: function() {
         console.log('Map module initialized with Leaflet + OpenStreetMap');
 
-        // Wait for DOM and Leaflet to be ready
+        // Wait for DOM and Leaflet to be ready with timeout
         if (typeof L === 'undefined') {
-            console.warn('Leaflet not loaded yet, retrying...');
+            this.retryCount++;
+            if (this.retryCount >= this.maxRetries) {
+                this.showLoadError('Leaflet library failed to load. Please check your internet connection and refresh the page.');
+                return;
+            }
+            console.warn(`Leaflet not loaded yet, retrying... (${this.retryCount}/${this.maxRetries})`);
             setTimeout(() => this.init(), 100);
             return;
         }
@@ -25,6 +32,29 @@ const Map = {
         }
 
         this.initMap();
+    },
+
+    showLoadError: function(message) {
+        const mapEl = document.getElementById('map');
+        if (mapEl) {
+            mapEl.innerHTML = `
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    padding: 40px;
+                    text-align: center;
+                    background: #f8f9fa;
+                ">
+                    <div style="font-size: 64px; margin-bottom: 20px;">📡</div>
+                    <div style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 10px;">Map Unavailable</div>
+                    <div style="font-size: 14px; color: #666; max-width: 300px;">${message}</div>
+                </div>
+            `;
+        }
+        console.error('Map initialization failed:', message);
     },
 
     initMap: function() {
@@ -53,12 +83,19 @@ const Map = {
         // Render venue markers
         this.renderVenueMarkers();
 
-        // Fix map size after initialization
+        // Fix map size after initialization (increased timeout for slower devices)
         setTimeout(() => {
             if (this.map) {
                 this.map.invalidateSize();
             }
-        }, 100);
+        }, 250);
+
+        // Additional resize check for very slow devices
+        setTimeout(() => {
+            if (this.map) {
+                this.map.invalidateSize();
+            }
+        }, 500);
     },
 
     renderHeatMap: function() {
